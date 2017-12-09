@@ -30,12 +30,17 @@
       <maven.compiler.target>1.8</maven.compiler.target>
       <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
       <maven.jar.plugin>2.6</maven.jar.plugin>  <!-- NOTE: don't update without testing OpenOffice, 3.0.2 caused "Got no data stream!" after add-on installation -->
+
       <maven.assemby.plugin>2.6</maven.assemby.plugin>
       <junit.version>4.12</junit.version>
       <morfologik.version>2.1.4</morfologik.version>
       <jackson.version>2.8.4</jackson.version>
       <lucene.version>5.5.4</lucene.version>
-  </properties>
+  <gib.commitRange>${env.TRAVIS_COMMIT_RANGE}</gib.commitRange>
+        <gib.enabled>true</gib.enabled>
+        <gib.useEkstazi>true</gib.useEkstazi>
+        <gib.excludePathRegex>(.*\.txt$)|(.*\.md$)|(.*\.html$)|(.*\.rst$)|(.*\.scss$)|(.*\.css$)|(.*\.png$)|(.*\.py$)|(.*README$)|(.*\.jpg$)|(.*\.jpeg$)|(.*NOTICE$)|(.*\.gitignore$)</gib.excludePathRegex>
+    </properties>
   
   <build>
       
@@ -46,7 +51,12 @@
               <artifactId>wagon-webdav</artifactId>
               <version>1.0-beta-2</version>
           </extension>
-      </extensions>
+      <extension>
+                <groupId>edu.illinois</groupId>
+                <artifactId>incremental-builder-with-ekstazi</artifactId>
+                <version>3.5.0</version>
+            </extension>
+        </extensions>
       
       <pluginManagement>
           <plugins>
@@ -82,7 +92,8 @@
               
           </plugins>
       </pluginManagement>
-  </build>
+  <plugins/>
+    </build>
 
   <distributionManagement>
     <repository>
@@ -180,3 +191,4 @@
   </modules>
 
 </project>
+
